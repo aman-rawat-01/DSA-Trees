@@ -1,0 +1,36 @@
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        TreeNode small=helper(root,new int[]{k});
+            return small.val;
+    }
+    public TreeNode helper(TreeNode root, int[] k){
+        if(root==null)
+        return null;
+
+        TreeNode left=helper(root.left,k);
+        if(left!=null)
+        return left;
+        k[0]--;
+        if(k[0]==0)
+        return root;
+
+        return helper(root.right,k);
+    }
+}
+
+
+
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        List<Integer> ans = new ArrayList<>();
+        helper(root,ans);
+        
+        return ans.get(k-1);
+    }
+    private void helper(TreeNode root, List<Integer> res){
+        if(root == null) return;
+        helper(root.left, res);
+        res.add(root.val);
+        helper(root.right,res);
+    }
+}
